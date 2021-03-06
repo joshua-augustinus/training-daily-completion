@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Button, Text, TextInput, TouchableOpacity, View, BackHandler } from 'react-native';
+import { Button, Text, TextInput, TouchableOpacity, View, BackHandler, StyleSheet } from 'react-native';
 import { SafeAreaView, StackActions } from 'react-navigation';
 import { DrawerActions, NavigationDrawerProp } from 'react-navigation-drawer';
 import { FeatureButton } from '@src/components/FeatureButton';
+import Svg, { Ellipse } from 'react-native-svg';
 
 /**
  * https://reactnavigation.org/docs/4.x/typescript
@@ -17,35 +18,26 @@ const MasterScreen = (props: Props) => {
 
     }, []);
 
-    const onMenuPress = () => {
-        console.log(props.navigation.state);// { key: 'Home', routeName: 'Home' }
-        console.log("Menu pressed");
-        props.navigation.dispatch(DrawerActions.toggleDrawer());
-    }
-
-    const onButtonPress = () => {
-        const pushAction = StackActions.push({
-            routeName: 'Stack1',
-            params: {
-                myUserId: 9,
-            },
-        });
-
-        props.navigation.dispatch(pushAction);
-    }
-
-
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ height: 50, backgroundColor: 'red', flexDirection: 'row', alignItems: 'center' }}>
 
-                <TouchableOpacity style={{ backgroundColor: 'yellow' }}
-                    onPress={() => onMenuPress()}>
-                    <Text>Menu</Text>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <TouchableOpacity>
+                    <Text>Press me</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <FeatureButton />
+            <View style={StyleSheet.absoluteFill}>
+                <View style={{ opacity: 0.7 }}>
+                    <Svg height="100%" width="100%" viewBox="0 0 100 100">
+                        <Ellipse cx="50" cy="50" rx="40" ry="40" fill='red' />
+                    </Svg>
+                </View>
+
+            </View>
+            <View style={StyleSheet.absoluteFill}>
+                <Svg height="100%" width="100%" viewBox="0 0 100 100">
+                    <Ellipse cx="50" cy="50" rx="30" ry="30" fill='orange' />
+                </Svg>
             </View>
         </SafeAreaView>
 
