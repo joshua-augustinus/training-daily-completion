@@ -5,6 +5,7 @@ import { NavigationDrawerProp } from 'react-navigation-drawer';
 import Svg, { Ellipse } from 'react-native-svg';
 import { getDailyCompletionSpring } from '@src/constants/AnimationConstants';
 import { Easing as RNEasing } from 'react-native';
+import { DailyCompletionInnerCircle } from '@src/components/DailyCompletionInnerCircle';
 
 /**
  * https://reactnavigation.org/docs/4.x/typescript
@@ -50,7 +51,6 @@ const MasterScreen = (props: Props) => {
                 delay: CLOSE_DELAY,
             }).start(() => {
 
-
             });
 
 
@@ -73,22 +73,13 @@ const MasterScreen = (props: Props) => {
 
             </View>
             <View style={StyleSheet.absoluteFill}>
-                <Animated.View style={{ transform: transform }}>
-                    <Svg height="100%" width="100%" viewBox="0 0 100 100">
-                        <Ellipse cx="50" cy="50" rx={RADIUS_2} ry={RADIUS_2} fill='white' />
-                    </Svg>
+                <Animated.View style={{ transform: transform, flex: 1 }}>
+                    <DailyCompletionInnerCircle />
                 </Animated.View>
-
             </View>
-            <View style={StyleSheet.absoluteFill}>
-                <Animated.View style={{ transform: transform }}>
 
-                    <Svg height="100%" width="100%" viewBox="0 0 100 100">
-                        <Ellipse cx="50" cy="50" rx={RADIUS_3} ry={RADIUS_3} fill='orange' />
-                    </Svg>
-                </Animated.View>
 
-            </View>
+
         </SafeAreaView>
 
     );
