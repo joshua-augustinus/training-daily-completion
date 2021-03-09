@@ -23,9 +23,11 @@ const CLOSE_DELAY = 2000
 const MasterScreen = (props: Props) => {
     const layoutState = useRef(new Animated.Value(0)).current;
     const springState = useRef(new Animated.Value(0)).current;
-    const [animationTime, setAnimationTime] = useState(null);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
+        if (!isVisible)
+            return;
         Animated.spring(springState, getDailyCompletionSpring(1)).start(() => {
         })
 
@@ -57,22 +59,27 @@ const MasterScreen = (props: Props) => {
                 setTimeout(() => {
                     layoutState.setValue(1);
                     springState.setValue(1);
+                    setIsVisible(false);
+
                 }, 1000)
 
             });
 
 
         });
-    }, [animationTime]);
+    }, [isVisible]);
 
     const triggerAnimation = () => {
         layoutState.setValue(0);
         springState.setValue(0);
-        setAnimationTime(new Date());
+        setIsVisible(true);
     }
 
     const transform = [{ scale: springState }]
     const outsideTransform = [{ scale: layoutState }]
+
+    if (!isVisible)
+        return <TouchableOpacity onPress={triggerAnimation}><Text>Press me</Text></TouchableOpacity>;
 
     return (
         <TouchableOpacity style={{ flex: 1 }} onPress={triggerAnimation}>

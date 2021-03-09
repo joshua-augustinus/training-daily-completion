@@ -4,12 +4,12 @@ import { Button, Text, TextInput, TouchableOpacity, View, BackHandler, StyleShee
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Svg, { Ellipse } from 'react-native-svg';
 import { DrivenColors } from '@src/constants/Colors';
+import { Tick } from './Tick';
 
 
 const RADIUS_2 = 35;
 const RADIUS_3 = 30
 const FONT_SIZE = 24;
-const TICK_SIZE = 124
 
 const DailyCompletionInnerCircle = () => {
 
@@ -30,7 +30,7 @@ const DailyCompletionInnerCircle = () => {
 
             </View>
             <View style={styles.textContainer}>
-                <Icon name="check" size={TICK_SIZE} color="white" />
+                <Tick renderTick={new Date()} />
                 <View style={styles.textRow}>
                     <Text style={styles.daily}>Daily </Text>
                     <Text style={styles.bonus}>Bonus</Text>
@@ -68,9 +68,9 @@ const styles = StyleSheet.create({
         top: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 24
     },
     textRow: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop: 20
     }
 })
