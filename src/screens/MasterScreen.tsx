@@ -32,7 +32,7 @@ const MasterScreen = (props: Props) => {
         Animated.timing(layoutState, {
             useNativeDriver: true,
             toValue: 4,
-            duration: 1000,
+            duration: 1500,
             easing: RNEasing.bezier(0.25, 0.46, 0.45, 0.94)
         }).start(() => {
             Animated.timing(layoutState, {
@@ -57,7 +57,7 @@ const MasterScreen = (props: Props) => {
                 setTimeout(() => {
                     layoutState.setValue(1);
                     springState.setValue(1);
-                }, 5000)
+                }, 1000)
 
             });
 
