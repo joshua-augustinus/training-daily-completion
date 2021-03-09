@@ -7,7 +7,7 @@ export const getDailyCompletionSpring = (toValue: number, delay?: number) => {
         toValue: toValue,
         useNativeDriver: true,
         friction: 3,
-        tension: 10,
+        tension: 40,
         restDisplacementThreshold: 0.001,
         restSpeedThreshold: 0.001,
         delay: delay
