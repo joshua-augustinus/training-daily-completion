@@ -7,6 +7,7 @@ import { getDailyCompletionSpring } from '@src/constants/AnimationConstants';
 import { Easing as RNEasing } from 'react-native';
 import { DailyCompletionInnerCircle } from '@src/components/DailyCompletionInnerCircle';
 import { DrivenColors } from '@src/constants/Colors';
+import { EasingFunctions } from '@src/constants/EasingFunctions';
 
 /**
  * https://reactnavigation.org/docs/4.x/typescript
@@ -23,47 +24,57 @@ const CLOSE_DELAY = 2000
 const MasterScreen = (props: Props) => {
     const layoutState = useRef(new Animated.Value(0)).current;
     const springState = useRef(new Animated.Value(0)).current;
+    const innerState = useRef(new Animated.Value(0)).current;
+
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         if (!isVisible)
             return;
-        Animated.spring(springState, getDailyCompletionSpring(1)).start(() => {
-        })
-
-        Animated.timing(layoutState, {
+        const ani1 = Animated.spring(springState, getDailyCompletionSpring(1));
+        const ani2 = Animated.timing(layoutState, {
             useNativeDriver: true,
             toValue: 4,
-            duration: 1500,
-            easing: RNEasing.bezier(0.25, 0.46, 0.45, 0.94)
-        }).start(() => {
-            Animated.timing(layoutState, {
+            duration: 700,
+            easing: EasingFunctions.easeInOut
+        });
+        const inner1 = Animated.timing(innerState, {
+            useNativeDriver: true,
+            toValue: 1,
+            duration: 200,
+            easing: EasingFunctions.easeInOut,
+            delay: 200
+        });
+
+        Animated.parallel([ani1, ani2, inner1]).start(() => {
+            const ani3 = Animated.timing(layoutState, {
                 useNativeDriver: true,
                 toValue: 0,
                 duration: 600,
                 delay: CLOSE_DELAY,
 
-            }).start(() => {
-
-
             });
 
-            Animated.timing(springState, {
+            const ani4 = Animated.timing(springState, {
                 useNativeDriver: true,
                 toValue: 0,
                 duration: 800,
                 delay: CLOSE_DELAY,
-            }).start(() => {
-                //commentouut
+            })
+
+
+            Animated.parallel([ani3, ani4]).start(() => {
 
                 setTimeout(() => {
                     layoutState.setValue(1);
                     springState.setValue(1);
+                    innerState.setValue(1);
+
+
                     setIsVisible(false);
 
                 }, 1000)
-
-            });
+            })
 
 
         });
@@ -72,6 +83,8 @@ const MasterScreen = (props: Props) => {
     const triggerAnimation = () => {
         layoutState.setValue(0);
         springState.setValue(0);
+        innerState.setValue(0);
+
         setIsVisible(true);
     }
 
@@ -98,7 +111,7 @@ const MasterScreen = (props: Props) => {
                 </View>
                 <View style={StyleSheet.absoluteFill}>
                     <Animated.View style={{ transform: transform, flex: 1 }}>
-                        <DailyCompletionInnerCircle />
+                        <DailyCompletionInnerCircle animationState={innerState} />
                     </Animated.View>
                 </View>
 

@@ -11,11 +11,11 @@ const RADIUS_2 = 35;
 const RADIUS_3 = 30
 const FONT_SIZE = 24;
 
-const DailyCompletionInnerCircle = () => {
+const DailyCompletionInnerCircle = (props: any) => {
 
 
     return (
-        < >
+        <>
             <View  >
                 <Svg height="100%" width="100%" viewBox="0 0 100 100">
                     <Ellipse cx="50" cy="50" rx={RADIUS_2} ry={RADIUS_2} fill='white' />
@@ -31,10 +31,10 @@ const DailyCompletionInnerCircle = () => {
             </View>
             <View style={styles.textContainer}>
                 <Tick renderTick={new Date()} />
-                <View style={styles.textRow}>
+                <Animated.View style={{ ...styles.textRow, transform: [{ scale: props.animationState }] }}>
                     <Text style={styles.daily}>Daily </Text>
                     <Text style={styles.bonus}>Bonus</Text>
-                </View>
+                </Animated.View>
 
 
 
