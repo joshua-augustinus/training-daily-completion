@@ -1,4 +1,4 @@
-import { Easing } from 'react-native-reanimated';
+import { Easing } from 'react-native';
 
 const EasingFunctions = {
     easeIn: Easing.bezier(0.42, 0, 1, 1),
