@@ -6,9 +6,10 @@ import { DrivenColors } from '@src/constants/Colors';
 import { Tick } from './Tick';
 import { EasingFunctions } from '@src/constants/EasingFunctions';
 
+const STROKEWIDTH = 3
+const RADIUS_INNER = 30
+const RADIUS_2 = RADIUS_INNER + STROKEWIDTH / 2;
 
-const RADIUS_2 = 33;
-const RADIUS_3 = 30
 const FONT_SIZE = 24;
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -52,7 +53,7 @@ const DailyCompletionInnerCircle = () => {
                         ref={circleRef}
                         cx="50" cy="50" r={RADIUS_2} fill='transparent'
                         stroke="white"
-                        strokeWidth={6}
+                        strokeWidth={STROKEWIDTH}
                         strokeDasharray={circleCircumference}
                         strokeDashoffset={circleCircumference}
                         strokeLinecap='round' />
@@ -62,7 +63,7 @@ const DailyCompletionInnerCircle = () => {
             <View style={StyleSheet.absoluteFill}>
 
                 <Svg height="100%" width="100%" viewBox="0 0 100 100">
-                    <Ellipse cx="50" cy="50" rx={RADIUS_3} ry={RADIUS_3} fill={DrivenColors.SECONDARY} />
+                    <Ellipse cx="50" cy="50" rx={RADIUS_INNER} ry={RADIUS_INNER} fill={DrivenColors.SECONDARY} />
                 </Svg>
 
             </View>
