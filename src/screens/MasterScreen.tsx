@@ -7,6 +7,7 @@ import { getDailyCompletionSpring } from '@src/constants/AnimationConstants';
 import { Easing as RNEasing } from 'react-native';
 import { DailyCompletionInnerCircle } from '@src/components/DailyCompletionInnerCircle';
 import { DrivenColors } from '@src/constants/Colors';
+import { EasingFunctions } from '@src/constants/EasingFunctions';
 
 /**
  * https://reactnavigation.org/docs/4.x/typescript
@@ -34,8 +35,8 @@ const MasterScreen = (props: Props) => {
         Animated.timing(layoutState, {
             useNativeDriver: true,
             toValue: 4,
-            duration: 1500,
-            easing: RNEasing.bezier(0.25, 0.46, 0.45, 0.94)
+            duration: 1600,
+            easing: EasingFunctions.easeOutQuad
         }).start(() => {
             Animated.timing(layoutState, {
                 useNativeDriver: true,
