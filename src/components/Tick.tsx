@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatedSVGPath } from "react-native-svg-animations";
 import { View } from 'react-native';
+import { PlayTickSound } from '@src/services/SoundService';
 
-/**
- * https://reactnavigation.org/docs/4.x/typescript
- */
-type Props = {
-    renderTick: Date
-}
 
 const d = 'M14.1 27.2l7.1 7.2 16.7-16.8';
 
+const DELAY = 500;
 
-const Tick = (props: Props) => {
+const Tick = () => {
 
+    useEffect(() => {
+        setTimeout(() => {
+            PlayTickSound();
 
+        }, DELAY);
+    }, [])
 
 
     return (
@@ -28,7 +29,7 @@ const Tick = (props: Props) => {
                 width={50}
                 d={d}
                 loop={false}
-                delay={500}
+                delay={DELAY}
 
             />
         </View>
