@@ -1,24 +1,61 @@
 import React, { useEffect, useRef } from 'react';
-import { Button, Text, TextInput, TouchableOpacity, View, BackHandler, StyleSheet, Animated } from 'react-native';
+import { Button, Text, TextInput, TouchableOpacity, View, BackHandler, StyleSheet, Animated, Alert } from 'react-native';
 
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import Svg, { Ellipse } from 'react-native-svg';
+import Svg, { Circle, Ellipse } from 'react-native-svg';
 import { DrivenColors } from '@src/constants/Colors';
 import { Tick } from './Tick';
+import { EasingFunctions } from '@src/constants/EasingFunctions';
 
 
-const RADIUS_2 = 35;
+const RADIUS_2 = 33;
 const RADIUS_3 = 30
 const FONT_SIZE = 24;
 
-const DailyCompletionInnerCircle = () => {
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
+const DailyCompletionInnerCircle = () => {
+    const circleCircumference = 2 * Math.PI * RADIUS_2
+    const circleRef = React.useRef();
+    const animatedValue = React.useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+
+
+        animatedValue.addListener((v) => {
+            if (circleRef?.current) {
+                const strokeDashOffset = circleCircumference - circleCircumference * v.value;
+                //@ts-ignore
+                circleRef.current.setNativeProps({
+                    strokeDashoffset: strokeDashOffset
+                })
+            }
+        })
+
+        Animated.timing(animatedValue, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+            easing: EasingFunctions.easeInQuint
+        }).start(() => {
+        });
+
+        return () => {
+            animatedValue.removeAllListeners()
+        }
+    })
 
     return (
         < >
             <View  >
                 <Svg height="100%" width="100%" viewBox="0 0 100 100">
-                    <Ellipse cx="50" cy="50" rx={RADIUS_2} ry={RADIUS_2} fill='white' />
+                    <AnimatedCircle
+                        ref={circleRef}
+                        cx="50" cy="50" r={RADIUS_2} fill='transparent'
+                        stroke="white"
+                        strokeWidth={6}
+                        strokeDasharray={circleCircumference}
+                        strokeDashoffset={circleCircumference}
+                        strokeLinecap='round' />
                 </Svg>
 
             </View>

@@ -28,7 +28,8 @@ const Tick = (props: Props) => {
                 width={50}
                 d={d}
                 loop={false}
-                delay={200}
+                delay={500}
+
             />
         </View>
 
