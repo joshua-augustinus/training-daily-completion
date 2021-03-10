@@ -67,7 +67,7 @@ const DailyCompletionInnerCircle = () => {
 
             </View>
             <View style={styles.textContainer}>
-                <Tick renderTick={new Date()} />
+                <Tick />
                 <View style={styles.textRow}>
                     <Text style={styles.daily}>Daily </Text>
                     <Text style={styles.bonus}>Bonus!</Text>
